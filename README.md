@@ -309,5 +309,4 @@ Se declara que durante la elaboración de este README se utilizó **Claude (Anth
  
 - **Generación de diagramas:** los diagramas de bloques y de secuencias en formato ASCII fueron generados con asistencia de Claude a partir del código fuente del proyecto.
 - **Mejora de redacción:** la estructuración y redacción de las secciones de este README fueron revisadas y mejoradas con asistencia de Claude.
-
-El código del proyecto fue desarrollado de forma independiente por el equipo.
+- **Depuracion de codigo:** El código del proyecto fue desarrollado por el equipo y partes con fallas fueron resueltas con IA.
