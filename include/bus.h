@@ -30,7 +30,8 @@ struct Bus : sc_core::sc_module
     acc_target.register_b_transport(this, &Bus::b_transport);
   }
 
-  // mira la direccion global y decide a quien enviarla
+  // mira la direccion y usa los rangos de memoria, ACC y de disco para saber a quien debe enviar los datos y lo hace facil
+//el puerto lo asigna en base a eso y la direccion la recorta en basado en la base u lo que llegue. el return es para el decode de delante
   bool decode(std::uint64_t gaddr,
               tlm_utils::simple_initiator_socket<Bus>** port,
               std::uint64_t& laddr)
@@ -62,14 +63,14 @@ struct Bus : sc_core::sc_module
     tlm_utils::simple_initiator_socket<Bus>* port = nullptr;
     std::uint64_t laddr = 0;
 
-    // si la direccion no existe respondemos con error
+    // si la direccion no existe respondemos con error. este decode tambien asigna variables basado en lo de arriba 
     if (!decode(gaddr, &port, laddr))
     {
       trans.set_response_status(tlm::TLM_ADDRESS_ERROR_RESPONSE);
       return;
     }
 
-    // cambiamos a direccion local, enviamos y restauramos
+    // cambiamos a direccion local, enviamos con lo que se hace en el decode y restauramos
     trans.set_address(laddr);
     (*port)->b_transport(trans, delay);
     trans.set_address(gaddr);
