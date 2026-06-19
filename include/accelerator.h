@@ -23,7 +23,7 @@ struct Accelerator : sc_core::sc_module
   bool ocupado = false;
   bool listo   = false;
 
-  // señal para despertar el proceso cuando el CPU manda START
+  // señal para despertar el proceso cuando manadmos start
   sc_core::sc_event senal_inicio;
 
   SC_CTOR(Accelerator) : cfg_socket("cfg_socket"), dma_socket("dma_socket")
@@ -35,6 +35,7 @@ struct Accelerator : sc_core::sc_module
   // convierte RGB a escala de grises usando BT.601
   // multiplico los pesos por 256 para evitar decimales
   // y al final divido con >>8 que es igual a dividir por 256
+// lo consegui en internt entonces creo que esta mas o menos bien
   static void rgb_a_gris(const unsigned char* rgb,
                           unsigned char* gris,
                           std::uint32_t npix)
