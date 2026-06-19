@@ -32,7 +32,7 @@ struct Storage : sc_core::sc_module
     if (!f)
       SC_REPORT_FATAL("STORAGE",
         ("no se pudo abrir: " + ruta_entrada).c_str());
-
+// pone a cero ademas que hace un rize del tamano de la imagen para el bs y lee y pone datos accesibles 
     const auto tam = f.tellg();
     f.seekg(0);
     buf_entrada.resize(static_cast<std::size_t>(tam));
@@ -41,7 +41,7 @@ struct Storage : sc_core::sc_module
     SC_REPORT_INFO("STORAGE",
       ("imagen cargada: " + ruta_entrada).c_str());
   }
-
+//leemos y asignamos igual para usar 
   void b_transport(tlm::tlm_generic_payload& trans, sc_core::sc_time& delay)
   {
     const auto cmd  = trans.get_command();
@@ -51,13 +51,13 @@ struct Storage : sc_core::sc_module
 
     if (cmd == tlm::TLM_READ_COMMAND)
     {
-      // el CPU quiere leer la imagen de entrada
+      // si entra entonecs leemos la imagen para el cp
       const std::uint64_t offset = addr - stg_slot::OFFSET_IN;
       std::memcpy(ptr, buf_entrada.data() + offset, len);
     }
     else
     {
-      // el CPU quiere guardar la imagen de salida
+      // para guardar la imagen de salida 
       std::ofstream f(ruta_salida, std::ios::binary | std::ios::trunc);
       f.write(reinterpret_cast<const char*>(ptr), len);
       SC_REPORT_INFO("STORAGE",
