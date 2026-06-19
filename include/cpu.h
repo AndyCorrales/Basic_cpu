@@ -60,7 +60,7 @@ struct CPU : sc_core::sc_module
     return valor;
   }
 
-  // flujo principal: los 7 pasos del enunciado
+  // esta es la funcion del trbajo y maneja rodo
   void flujo_principal()
   {
     std::cout << "Iniciando proceso de conversion...\n";
